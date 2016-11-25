@@ -51,9 +51,10 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     # X
-    dmenu
     xorg.xclock
     xorg.xmodmap
+    dmenu
+    xdotool
 
     # Web
     chromium
@@ -62,7 +63,8 @@
     # Development tools
     wget
     vim
-    emacs
+    (emacsWithPackages (with emacsPackagesNg; [
+    ]))
     htop
     ag
     git
@@ -73,7 +75,7 @@
     # Languages and libraries
     ghc
     haskellPackages.stack
-    haskellPackages.purescript
+    zlib
 
     nodejs
     nodePackages.grunt-cli
@@ -87,6 +89,7 @@
   fonts.fonts = with pkgs; [
     inconsolata
     fira-code
+    anonymousPro
   ];
 
   # List services that you want to enable:
@@ -143,6 +146,9 @@
   users.extraUsers.srid = {
     isNormalUser = true;
     uid = 1000;
+    extraGroups = [
+      "wheel"
+    ];
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
